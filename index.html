@@ -4,12 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Weight On Another Planets</title>
+    <title>Weights on Planets</title>
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Code Comet.jpg">
+    <link rel="icon" href="Code Comet.jpg">
 </head>
 
 <body>
+    <dialog class="alert1">
+        <div class="alert1items">
+            <div class="header">
+                <button class="exitalert1" id="close-button" aria-label="Close Alert">
+                    <img src="close.svg" alt="إغلاق">
+                </button>
+                <h1>instructions</h1>
+            </div>
+
+            <ul>
+                <li>The Weight Must be Between 1 and 150</li>
+                <li>The Planet Must be From the Solar System</li>
+                <li>If The Spelling Was False The Progam Didn`t Work</li>
+            </ul>
+        </div>
+    </dialog>
+
+    <header>
+        <figure>
+            <img src="Code Comet.jpg" alt="Logo" width="60">
+            <figcaption>Weights on Planets</figcaption>
+        </figure>
+
+        <nav>
+            <div class="condition">
+                <button class="extendScreen">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" width="24" height="24" fill="black">
+                        <path
+                            d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+                    </svg>
+                </button>
+            </div>
+            <div class="normal">
+                <button id="open-button">instruction</button>
+            </div>
+        </nav>
+    </header>
     <form>
         <!-- User Weight -->
         <div class="input">
@@ -37,7 +76,7 @@
         <hr class="separator">
 
         <!-- Submit -->
-        <button type="submit" style="cursor:pointer;" class="confirm">Calculate</button>
+        <button type="submit" class="confirm">Calculate</button>
 
         <!-- Report -->
     </form>

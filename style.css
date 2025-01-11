@@ -11,23 +11,147 @@
 
 body {
     overflow: hidden;
-    height: 100vh;
     height: 100dvh;
+    width: 100dvw;
+    gap: 20px;
+    font-family: Poppins;
+}
+
+dialog {
+    margin: auto;
+
+    /* Add display */
+    transition: opacity 0.7s ease-in, display 0.7s ease-in;
+
+    /* Add transition-behavior */
+    transition-behavior: allow-discrete;
+
+    /* Style when open */
+    opacity: 1;
+}
+
+/* The style when closed */
+@starting-style {
+    dialog {
+        opacity: 0;
+    }
+}
+
+/* The style when closed */
+dialog:not([open]) {
+    opacity: 0;
+}
+
+/* Error Dialog */
+.alert1 {
+    margin: auto;
+    height: max-content;
+    width: 90vw;
+    border-radius: 20px;
+}
+
+.alert1items {
+    padding: 20px;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.alert1 h1 {
+    text-align: center;
+}
+
+.exitalert1 {
+    background: rgb(255, 240, 200);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+ul {
+    width: 100%;
+    font-weight: 600;
+}
+
+ul li {
+    margin: 10px 0 0 20px
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+button {
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    align-content: center;
-    flex-direction: column;
-    gap: 20px;
+}
+
+img {
+    pointer-events: none;
+}
+
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 10px;
+    box-shadow: 0 0 10px black;
+}
+
+figure {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+figcaption {
+    font-size: clamp(2vw, 20px, 40px);
+    font-weight: 600
+}
+
+figure>img {
+    border-radius: 50%;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.normal>button {
+    background: none;
     font-family: Poppins;
+    font-weight: 600;
+    font-size: clamp(2vw, 20px, 40px);
+}
+
+.condition {
+    display: none;
+}
+
+.condition>button {
+    background: none;
 }
 
 form {
     width: max-content;
     display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     border-radius: 20px;
     border: 2px solid gold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .input {
@@ -46,7 +170,7 @@ input {
 }
 
 label {
-    width: 100px;
+    width: 120px;
 }
 
 input {
@@ -70,17 +194,33 @@ input {
     border-radius: 0px;
     border: none;
     height: 50px;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
     font-family: Poppins;
     font-size: 20px;
     font-weight: 700
 }
 
 .results {
+    width: 100%;
     font-weight: 600;
-    font-size: min(6vw, 40px);
+    font-size: clamp(2vw, 20px, 40px);
+    text-align: center;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 @media screen and (max-width:465px) {
+    .condition {
+        display: inline;
+    }
+
+    .normal {
+        display: none;
+    }
+
     form {
         width: 95vw;
     }
@@ -90,6 +230,10 @@ input {
         flex-direction: column;
         justify-content: center;
         align-items: start;
+    }
+
+    .input:nth-child(1) {
+        margin-top: 10px;
     }
 
     .results {
