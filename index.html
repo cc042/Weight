@@ -4,145 +4,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weights on Planets</title>
-    <script src="index.js" defer></script>
+    <title>Weight on Planets</title>
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="assets/Code Comet.jpg">
     <link rel="icon" href="assets/Code Comet.jpg">
+    <script src="index.js" defer></script>
 </head>
 
 <body>
-    <!-- dialogs -->
-    <dialog class="success">
-        <div class="success__icon">
-            <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                <path clip-rule="evenodd"
-                    d="m12 1c-6.075 0-11 4.925-11 11s4.925 11 11 11 11-4.925 11-11-4.925-11-11-11zm4.768 9.14c.0878-.1004.1546-.21726.1966-.34383.0419-.12657.0581-.26026.0477-.39319-.0105-.13293-.0475-.26242-.1087-.38085-.0613-.11844-.1456-.22342-.2481-.30879-.1024-.08536-.2209-.14938-.3484-.18828s-.2616-.0519-.3942-.03823c-.1327.01366-.2612.05372-.3782.1178-.1169.06409-.2198.15091-.3027.25537l-4.3 5.159-2.225-2.226c-.1886-.1822-.4412-.283-.7034-.2807s-.51301.1075-.69842.2929-.29058.4362-.29285.6984c-.00228.2622.09851.5148.28067.7034l3 3c.0983.0982.2159.1748.3454.2251.1295.0502.2681.0729.4069.0665.1387-.0063.2747-.0414.3991-.1032.1244-.0617.2347-.1487.3236-.2554z"
-                    fill="#393a37" fill-rule="evenodd"></path>
-            </svg>
+    <dialog class="Load" open>
+        <div class="loader">
+            <div class="quarter i"></div>
+            <div class="quarter ii"></div>
         </div>
-        <div class="success__title"></div>
-        <div class="success__close" onclick="closeDialog('success')"><img src="assets/close.svg" alt="close"></div>
+    </dialog>
+
+    <dialog class="Follows">
+        <div class="followsitems">
+            <div class="followHeader">
+                <button class="Followsclose close">
+                    <img src="assets/close.svg" alt="close">
+                </button>
+                <h1>Accounts</h1>
+            </div>
+            <div class="socials">
+                <div class="social-item">
+                    <img src="assets/youtube.svg" alt="YouTube" width="32" height="32">
+                    <a href="https://youtube.com/" target="_blank">YouTube</a>
+                </div>
+                <div class="social-item">
+                    <img src="assets/instagram.svg" alt="Instagram" width="32" height="32">
+                    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
+                </div>
+                <div class="social-item">
+                    <img class="X" src="assets/twitter.svg" alt="Twitter" width="32" height="32">
+                    <a href="https://www.twitter.com/" target="_blank">Twitter</a>
+                </div>
+                <div class="social-item">
+                    <img src="assets/tik-tok.png" alt="TikTok" width="32" height="32">
+                    <a href="https://www.tiktok.com/" target="_blank">TikTok</a>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog class="project">
+        <div class="followsitems">
+            <div class="followHeader">
+                <button class="Projectclose close">
+                    <img src="assets/close.svg" alt="close">
+                </button>
+                <h1>Projects</h1>
+            </div>
+            <div class="projects">
+
+            </div>
+        </div>
     </dialog>
 
     <dialog class="error">
-        <div class="Error">
-            <div class="error__icon">
-                <svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="m13 13h-2v-6h2zm0 4h-2v-2h2zm-1-15c-1.3132 0-2.61358.25866-3.82683.7612-1.21326.50255-2.31565 1.23915-3.24424 2.16773-1.87536 1.87537-2.92893 4.41891-2.92893 7.07107 0 2.6522 1.05357 5.1957 2.92893 7.0711.92859.9286 2.03098 1.6651 3.24424 2.1677 1.21325.5025 2.51363.7612 3.82683.7612 2.6522 0 5.1957-1.0536 7.0711-2.9289 1.8753-1.8754 2.9289-4.4189 2.9289-7.0711 0-1.3132-.2587-2.61358-.7612-3.82683-.5026-1.21326-1.2391-2.31565-2.1677-3.24424-.9286-.92858-2.031-1.66518-3.2443-2.16773-1.2132-.50254-2.5136-.7612-3.8268-.7612z"
-                        fill="#393a37"></path>
-                </svg>
+        <div class="errorItems">
+            <div class="errorHeader">
+                <button class="errorClose close"><img src="assets/close.svg" alt="close"></button>
+                <h1>error</h1>
             </div>
-            <div class="error__title"></div>
-            <div class="error__close" onclick="closeDialog('error')"><img src="assets/close.svg" alt="close"></div>
-        </div>
-    </dialog>
-
-    <dialog class="instructionsdialog">
-        <div class="instructionsItems">
-            <div class="header">
-                <button class="close" onclick="closeDialog('instructionsdialog')">
-                    <img src="assets/close.svg" alt="close">
-                </button>
-                <h1>Instructions</h1>
-            </div>
-            <div class="instructionsItems">
-                <ul>
-                    <li>The planets must be from the solar system</li>
-                    <li>The weight must be between 1 and 150 kg</li>
-                </ul>
+            <div class="errorcontent">
+                <h2 class="msg"></h2>
             </div>
         </div>
     </dialog>
 
-    <dialog class="Projectsdialog">
-        <div class="ProjectItems">
-            <div class="header">
-                <button onclick="closeDialog('Projectsdialog')" class="close">
-                    <img src="assets/close.svg" alt="">
-                </button>
-                <h1>Our Projects</h1>
+    <dialog class="alert">
+        <div class="AlertItems">
+            <div class="AlertHeader">
+                <button class="AlertClose close"><img src="assets/close.svg" alt="close"></button>
+                <h1>Alert</h1>
             </div>
-            <div class="ProjectContent">
-                
+            <div class="Alertcontent">
+                <h2 class="Msg"></h2>
             </div>
         </div>
     </dialog>
 
-    <!-- Aside For Smaller Screens -->
-    <aside aria-opened="false">
-        <div class="sidebarwrapper">
-            <div class="sidebarheader">
-                <button class="sidebarclose" onclick="closeAside()"><img src="assets/close.svg" alt="close"></button>
+    <aside class="extend" aria-open="false">
+        <div class="asideContent">
+            <header class="AsideHeader">
+                <button class="close" id="AsideClose"><img src="assets/close.svg" alt="close"></button>
                 <h1>NG Software</h1>
-            </div>
+            </header>
 
-            <div class="sidebarcontent">
+            <div class="AsideContent">
                 <ul>
-                    <li><button id="open-button" class="Instructions">Instructions</button></li>
-                    <li><button id="open-button" class="projectbtn">Projects</button></li>
+                    <li><button class="follows">Accounts</button></li>
+                    <li><button class="Projects">Projects</button></li>
                 </ul>
             </div>
         </div>
     </aside>
 
-    <!-- Header for Informations -->
-    <header>
+    <header class="BodyHeader">
         <figure>
-            <img src="assets/Code Comet.jpg" alt="Logo" width="60">
+            <img src="assets/Code Comet.jpg" alt="Logo">
             <figcaption>NG Software</figcaption>
         </figure>
 
         <nav>
-            <div class="condition">
-                <button class="extendScreen" onclick="extendScreen()">
-                    <img src="assets/extend.svg" alt="extend">
-                </button>
+            <div class="Visible">
+                <ul>
+                    <li><button class="follows">Accounts</button></li>
+                    <li><button class="Projects">Projects</button></li>
+                </ul>
             </div>
 
-            <div class="normal">
-                <button class="projectbtn">Our Projects</button>
-                <button class="Instructions" id="open-button">instruction</button>
-            </div>
+            <div class="NonVisible"><button class="extender"><img src="assets/extend.svg" alt="extend"></button></div>
         </nav>
     </header>
 
-    <!-- App Form -->
-    <form>
-        <!-- User Weight -->
-        <div class="input">
-            <label for="weight">Weight:</label>
-            <input type="number" class="weight" value="50">
+    <main>
+        <div class="WeightWrapper">
+            <form class="WeightForm" autocomplete="off">
+                <div class="weight">
+                    <label class="For" for="weightinput">Weight:</label>
+                    <input type="text" id="weightinput" required maxlength="3" minlength="1" max="150" min="1"
+                        pattern="[0-9]*">
+                </div>
+
+                <div class="planet">
+                    <label class="For" for="planetinput">Planet:</label>
+                    <input type="text" id="planetinput" required>
+                </div>
+
+
+                <div class="submit">
+                    <input type="submit" value="Calculate">
+                </div>
+            </form>
+            <div class="result">The Results</div>
         </div>
-
-        <!-- Planets -->
-        <div class="input">
-            <label for="planets">Planet:</label>
-            <input type="text" id="planets" list="Planets" pattern="[a-z]*" value="jupiter">
-
-            <datalist id="Planets">
-                <option value="mercury"></option>
-                <option value="venus"></option>
-                <option value="earth"></option>
-                <option value="mars"></option>
-                <option value="jupiter"></option>
-                <option value="saturn"></option>
-                <option value="uranus"></option>
-                <option value="neptune"></option>
-                <option value="pluto"></option>
-            </datalist>
-        </div>
-
-        <!-- Separator -->
-        <hr class="separator">
-
-        <!-- Submit -->
-        <button type="submit" class="confirm">Calculate</button>
-    </form>
-
-    <!-- Report -->
-    <p class="results">The Results</p>
+    </main>
 </body>
 
 </html>
