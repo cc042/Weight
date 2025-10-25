@@ -19,7 +19,7 @@
             background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             color: #fff;
             min-height: 100vh;
-            padding: 20px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -27,14 +27,15 @@
         }
 
         .container {
-            max-width: 94dvw;
             width: 100%;
+            max-width: 1400px;
             background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 30px;
+            padding: 25px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 10px;
         }
 
         header {
@@ -42,40 +43,43 @@
             text-align: center;
             margin-bottom: 30px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
         .logo {
-            width: 135px;
+            width: 120px;
             display: block;
             border-radius: 10px;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
             background: linear-gradient(to right, #ff7e5f, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
         .tagline {
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             color: #b8b8ff;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            line-height: 1.4;
         }
 
         .calculator-container {
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
         }
 
         .input-section {
             display: flex;
-            flex-direction: row;
-            align-items: center;
+            flex-direction: column;
+            align-items: stretch;
             justify-content: center;
             gap: 15px;
             padding: 20px;
@@ -85,7 +89,7 @@
         }
 
         .input-group {
-            flex: 1;
+            width: 100%;
         }
 
         input[type="number"]::-webkit-outer-spin-button,
@@ -100,9 +104,8 @@
         }
 
         input {
-            flex-shrink: 1;
             width: 100%;
-            padding: 12px 15px;
+            padding: 14px 16px;
             border: none;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.1);
@@ -123,7 +126,7 @@
             background: linear-gradient(to right, #667eea, #764ba2);
             color: white;
             border: none;
-            padding: 12px 25px;
+            padding: 14px 20px;
             border-radius: 10px;
             font-size: 1rem;
             font-weight: 500;
@@ -134,6 +137,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            gap: 8px;
         }
 
         button:hover {
@@ -147,19 +151,24 @@
 
         .planet-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
         }
 
         .planet-card {
             background: rgba(30, 32, 48, 0.7);
             border-radius: 15px;
-            padding: 20px;
+            padding: 20px 15px;
             text-align: center;
             transition: all 0.3s ease;
             border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 220px;
         }
 
         .planet-card:hover {
@@ -169,17 +178,18 @@
         }
 
         .planet-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 12px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
+            font-size: 1.8rem;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
             position: relative;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .planet-icon::after {
@@ -194,29 +204,31 @@
         }
 
         .planet-name {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
             font-weight: 600;
+            line-height: 1.2;
         }
 
         .planet-weight {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 700;
             margin-bottom: 5px;
-            min-height: 40px;
+            min-height: 35px;
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.2;
         }
 
         .planet-gravity {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #b8b8ff;
+            line-height: 1.3;
         }
 
         /* Custom Dialog Styles */
         .dialog-overlay {
-            aspect-ratio: 3 / 2;
             position: fixed;
             top: 0;
             left: 0;
@@ -230,6 +242,7 @@
             opacity: 0;
             visibility: hidden;
             transition: all 0.3s ease;
+            padding: 20px;
         }
 
         .dialog-overlay.active {
@@ -241,8 +254,11 @@
             background: rgba(30, 32, 48, 0.95);
             backdrop-filter: blur(15px);
             border-radius: 20px;
-            padding: 40px 30px 30px;
-            max-width: 90dvw;
+            padding: 30px 25px 25px;
+            width: 100%;
+            max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.15);
             transform: translateY(-30px) scale(0.95);
@@ -258,41 +274,44 @@
         }
 
         .dialog-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 25px;
+            width: 70px;
+            height: 70px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
         }
 
         .dialog-icon svg {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
         }
 
         .dialog-title {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
             font-weight: 600;
             background: linear-gradient(to right, #ff7e5f, #feb47b);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            line-height: 1.2;
         }
 
         .dialog-message {
-            margin-bottom: 30px;
-            line-height: 1.6;
+            margin-bottom: 25px;
+            line-height: 1.5;
             color: #b8b8ff;
-            font-size: 1.05rem;
+            font-size: 1rem;
+            width: 100%;
         }
 
         .dialog-buttons {
             display: flex;
             width: 100%;
-            gap: 15px;
+            gap: 12px;
             margin-top: auto;
         }
 
@@ -305,7 +324,6 @@
             transition: all 0.3s ease;
             font-size: 1rem;
             flex: 1;
-            margin-top: auto;
         }
 
         .dialog-button.confirm {
@@ -379,54 +397,209 @@
         }
 
         /* Responsive design */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
+        @media (min-width: 480px) {
+            .container {
+                padding: 25px;
+                margin: 15px;
             }
 
             .planet-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 18px;
             }
 
-            .input-section {
-                flex-direction: column;
-                gap: 15px;
+            .planet-card {
+                padding: 20px;
+                min-height: 240px;
             }
 
-            .input-group {
-                max-width: 100%;
-            }
-
-            .dialog {
-                padding: 30px 20px 25px;
+            .planet-icon {
+                width: 75px;
+                height: 75px;
             }
         }
 
-        @media (max-width: 480px) {
-            .container {
+        @media (min-width: 640px) {
+            body {
                 padding: 20px;
             }
 
-            h1 {
+            .container {
+                padding: 30px;
+            }
+
+            .input-section {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .input-group {
+                flex: 1;
+            }
+
+            button {
+                flex-shrink: 0;
+            }
+
+            header {
+                flex-direction: row;
+                gap: 20px;
+                text-align: left;
+            }
+
+            .logo {
+                width: 135px;
+            }
+
+            .planet-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 20px;
+            }
+
+            .planet-card {
+                min-height: 260px;
+            }
+
+            .planet-icon {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .planet-grid {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            }
+
+            .dialog {
+                padding: 35px 30px 30px;
+            }
+
+            .dialog-icon {
+                width: 80px;
+                height: 80px;
+                margin-bottom: 25px;
+            }
+
+            .dialog-title {
                 font-size: 1.8rem;
+            }
+
+            .dialog-message {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .planet-grid {
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 25px;
+            }
+
+            .planet-card {
+                min-height: 280px;
+            }
+
+            .planet-icon {
+                width: 90px;
+                height: 90px;
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .planet-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+        }
+
+        @media (max-width: 360px) {
+            .container {
+                padding: 20px 15px;
             }
 
             .planet-grid {
                 grid-template-columns: 1fr;
+                gap: 12px;
             }
 
-            .dialog-buttons {
-                flex-direction: column;
+            .planet-card {
+                padding: 15px 12px;
+                min-height: 200px;
+            }
+
+            .planet-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .planet-name {
+                font-size: 1rem;
+            }
+
+            .planet-weight {
+                font-size: 1.1rem;
+            }
+
+            .dialog {
+                padding: 25px 20px 20px;
             }
 
             .dialog-icon {
-                width: 70px;
-                height: 70px;
-                margin-bottom: 20px;
+                width: 60px;
+                height: 60px;
+                margin-bottom: 15px;
+            }
+
+            .dialog-icon svg {
+                width: 30px;
+                height: 30px;
             }
 
             .dialog-title {
-                font-size: 1.6rem;
+                font-size: 1.4rem;
+            }
+
+            .dialog-message {
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .dialog-button {
+                padding: 12px 16px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Landscape orientation for mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+
+            header {
+                margin-bottom: 20px;
+            }
+
+            .calculator-container {
+                gap: 20px;
+            }
+
+            .planet-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 12px;
+            }
+
+            .planet-card {
+                padding: 15px;
+                min-height: 200px;
             }
         }
     </style>
@@ -449,15 +622,16 @@
                         <input type="number" id="earth-weight" min="0" placeholder="Enter your weight in kg">
                     </div>
                     <button id="calculate-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 512 512">
                             <path
                                 d="M176,176V136a40,40,0,0,1,40-40H424a40,40,0,0,1,40,40V376a40,40,0,0,1-40,40H216a40,40,0,0,1-40-40V336"
-                                style="fill:none;stroke:#302b63;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+                                style="fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
                             <polyline points="272 336 352 256 272 176"
-                                style="fill:none;stroke:#302b63;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+                                style="fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
                             <line x1="48" y1="256" x2="336" y2="256"
-                                style="fill:none;stroke:#302b63;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+                                style="fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
                         </svg>
+                        Calculate
                     </button>
                 </div>
 
