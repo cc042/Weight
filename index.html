@@ -4,144 +4,743 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weight on Planets</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="assets/Code Comet.jpg">
-    <link rel="icon" href="assets/Code Comet.jpg">
-    <script src="index.js" defer></script>
+    <title>Planetary Weight Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 94dvw;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 135px;
+            display: block;
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            color: #b8b8ff;
+            margin-bottom: 20px;
+        }
+
+        .calculator-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .input-section {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(30, 32, 48, 0.7);
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .input-group {
+            flex: 1;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* For Firefox */
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input {
+            flex-shrink: 1;
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            height: 55px;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 2px rgba(184, 184, 255, 0.5);
+        }
+
+        button {
+            height: 55px;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .results-section {
+            margin-top: 10px;
+        }
+
+        .planet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .planet-card {
+            background: rgba(30, 32, 48, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planet-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border-color: rgba(184, 184, 255, 0.3);
+        }
+
+        .planet-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .planet-icon::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 70%);
+        }
+
+        .planet-name {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .planet-weight {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .planet-gravity {
+            font-size: 0.9rem;
+            color: #b8b8ff;
+        }
+
+        /* Custom Dialog Styles */
+        .dialog-overlay {
+            aspect-ratio: 3 / 2;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .dialog-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .dialog {
+            background: rgba(30, 32, 48, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 40px 30px 30px;
+            max-width: 90dvw;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transform: translateY(-30px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dialog-overlay.active .dialog {
+            transform: translateY(0) scale(1);
+        }
+
+        .dialog-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .dialog-icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .dialog-title {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .dialog-message {
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: #b8b8ff;
+            font-size: 1.05rem;
+        }
+
+        .dialog-buttons {
+            display: flex;
+            width: 100%;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .dialog-button {
+            padding: 14px 20px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            flex: 1;
+            margin-top: auto;
+        }
+
+        .dialog-button.confirm {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .dialog-button.cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dialog-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .dialog-button.confirm:hover {
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .single-button .dialog-buttons {
+            flex-direction: column;
+        }
+
+        .single-button .dialog-button {
+            width: 100%;
+        }
+
+        /* Planet-specific colors */
+        .mercury .planet-icon {
+            background: linear-gradient(135deg, #8c8c8c, #5a5a5a);
+        }
+
+        .venus .planet-icon {
+            background: linear-gradient(135deg, #e6b87e, #d4a574);
+        }
+
+        .earth .planet-icon {
+            background: linear-gradient(135deg, #6b93d6, #4a7bc8);
+        }
+
+        .mars .planet-icon {
+            background: linear-gradient(135deg, #c1440e, #a63c0c);
+        }
+
+        .jupiter .planet-icon {
+            background: linear-gradient(135deg, #c9a87a, #b8945f);
+        }
+
+        .saturn .planet-icon {
+            background: linear-gradient(135deg, #e3cda5, #d4b98a);
+        }
+
+        .uranus .planet-icon {
+            background: linear-gradient(135deg, #b5e3e3, #9fd4d4);
+        }
+
+        .neptune .planet-icon {
+            background: linear-gradient(135deg, #5b6ee1, #4a5bc9);
+        }
+
+        .sun .planet-icon {
+            background: linear-gradient(135deg, #ff9900, #ff6600);
+        }
+
+        .moon .planet-icon {
+            background: linear-gradient(135deg, #cccccc, #999999);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .planet-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+
+            .input-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .input-group {
+                max-width: 100%;
+            }
+
+            .dialog {
+                padding: 30px 20px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .planet-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dialog-buttons {
+                flex-direction: column;
+            }
+
+            .dialog-icon {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 20px;
+            }
+
+            .dialog-title {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <dialog class="Load" open>
-        <div class="loader">
-            <div class="quarter i"></div>
-            <div class="quarter ii"></div>
-        </div>
-    </dialog>
-
-    <dialog class="Follows">
-        <div class="followsitems">
-            <div class="followHeader">
-                <button class="Followsclose close">
-                    <img src="assets/close.svg" alt="close">
-                </button>
-                <h1>Accounts</h1>
+    <div class="container">
+        <header>
+            <img src="https://raw.githubusercontent.com/cc042/logo/main/logo.png" alt="Logo" class="logo">
+            <div>
+                <h1>Planetary Weight Calculator</h1>
+                <p class="tagline">Discover what you would weigh across our solar system</p>
             </div>
-            <div class="socials">
-                <div class="social-item">
-                    <img src="assets/youtube.svg" alt="YouTube" width="32" height="32">
-                    <a href="https://youtube.com/" target="_blank">YouTube</a>
-                </div>
-                <div class="social-item">
-                    <img src="assets/instagram.svg" alt="Instagram" width="32" height="32">
-                    <a href="https://www.instagram.com/" target="_blank">Instagram</a>
-                </div>
-                <div class="social-item">
-                    <img class="X" src="assets/twitter.svg" alt="Twitter" width="32" height="32">
-                    <a href="https://www.twitter.com/" target="_blank">Twitter</a>
-                </div>
-                <div class="social-item">
-                    <img src="assets/tik-tok.png" alt="TikTok" width="32" height="32">
-                    <a href="https://www.tiktok.com/" target="_blank">TikTok</a>
-                </div>
-            </div>
-        </div>
-    </dialog>
+        </header>
 
-    <dialog class="project">
-        <div class="followsitems">
-            <div class="followHeader">
-                <button class="Projectclose close">
-                    <img src="assets/close.svg" alt="close">
-                </button>
-                <h1>Projects</h1>
-            </div>
-            <div class="projects">
-
-            </div>
-        </div>
-    </dialog>
-
-    <dialog class="error">
-        <div class="errorItems">
-            <div class="errorHeader">
-                <button class="errorClose close"><img src="assets/close.svg" alt="close"></button>
-                <h1>error</h1>
-            </div>
-            <div class="errorcontent">
-                <h2 class="msg"></h2>
-            </div>
-        </div>
-    </dialog>
-
-    <dialog class="alert">
-        <div class="AlertItems">
-            <div class="AlertHeader">
-                <button class="AlertClose close"><img src="assets/close.svg" alt="close"></button>
-                <h1>Alert</h1>
-            </div>
-            <div class="Alertcontent">
-                <h2 class="Msg"></h2>
-            </div>
-        </div>
-    </dialog>
-
-    <aside class="extend" aria-open="false">
-        <div class="asideContent">
-            <header class="AsideHeader">
-                <button class="close" id="AsideClose"><img src="assets/close.svg" alt="close"></button>
-                <h1>NG Software</h1>
-            </header>
-
-            <div class="AsideContent">
-                <ul>
-                    <li><button class="follows">Accounts</button></li>
-                    <li><button class="Projects">Projects</button></li>
-                </ul>
-            </div>
-        </div>
-    </aside>
-
-    <header class="BodyHeader">
-        <figure>
-            <img src="assets/Code Comet.jpg" alt="Logo">
-            <figcaption>NG Software</figcaption>
-        </figure>
-
-        <nav>
-            <div class="Visible">
-                <ul>
-                    <li><button class="follows">Accounts</button></li>
-                    <li><button class="Projects">Projects</button></li>
-                </ul>
-            </div>
-
-            <div class="NonVisible"><button class="extender"><img src="assets/extend.svg" alt="extend"></button></div>
-        </nav>
-    </header>
-
-    <main>
-        <div class="WeightWrapper">
-            <form class="WeightForm" autocomplete="off">
-                <div class="weight">
-                    <label class="For" for="weightinput">Weight:</label>
-                    <input type="text" id="weightinput" required maxlength="3" minlength="1" max="150" min="1"
-                        pattern="[0-9]*">
+        <main>
+            <div class="calculator-container">
+                <div class="input-section">
+                    <div class="input-group">
+                        <input type="number" id="earth-weight" min="0" placeholder="Enter your weight in kg">
+                    </div>
+                    <button id="calculate-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 512 512">
+                            <path
+                                d="M176,176V136a40,40,0,0,1,40-40H424a40,40,0,0,1,40,40V376a40,40,0,0,1-40,40H216a40,40,0,0,1-40-40V336"
+                                style="fill:none;stroke:#302b63;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+                            <polyline points="272 336 352 256 272 176"
+                                style="fill:none;stroke:#302b63;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+                            <line x1="48" y1="256" x2="336" y2="256"
+                                style="fill:none;stroke:#302b63;stroke-linecap:round;stroke-linejoin:round;stroke-width:32px" />
+                        </svg>
+                    </button>
                 </div>
 
-                <div class="planet">
-                    <label class="For" for="planetinput">Planet:</label>
-                    <input type="text" id="planetinput" required>
+                <div class="results-section">
+                    <div class="planet-grid" id="planet-grid">
+                        <!-- Planets will be generated by JavaScript -->
+                    </div>
                 </div>
+            </div>
+        </main>
+    </div>
 
-
-                <div class="submit">
-                    <input type="submit" value="Calculate">
-                </div>
-            </form>
-            <div class="result">The Results</div>
+    <!-- Custom Dialog Element -->
+    <div class="dialog-overlay" id="dialog-overlay">
+        <div class="dialog" id="dialog">
+            <div class="dialog-icon" id="dialog-icon">
+                <!-- SVG icon will be inserted here -->
+            </div>
+            <h3 class="dialog-title" id="dialog-title">Attention</h3>
+            <p class="dialog-message" id="dialog-message">This is a dialog message.</p>
+            <div class="dialog-buttons">
+                <button class="dialog-button confirm" id="dialog-confirm">OK</button>
+                <button class="dialog-button cancel" id="dialog-cancel" style="display: none;">Cancel</button>
+            </div>
         </div>
-    </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Planet data with gravity relative to Earth
+            const planets = [
+                {
+                    name: 'Sun',
+                    gravity: 28,
+                    icon: '☀️'
+                },
+                {
+                    name: 'Mercury',
+                    gravity: 0.38,
+                    icon: '☿'
+                },
+                {
+                    name: 'Venus',
+                    gravity: 0.91,
+                    icon: '♀'
+                },
+                {
+                    name: 'Earth',
+                    gravity: 1.00,
+                    icon: '♁'
+                },
+                {
+                    name: 'Mars',
+                    gravity: 0.38,
+                    icon: '♂'
+                },
+                {
+                    name: 'Jupiter',
+                    gravity: 2.34,
+                    icon: '♃'
+                },
+                {
+                    name: 'Saturn',
+                    gravity: 1.06,
+                    icon: '♄'
+                },
+                {
+                    name: 'Uranus',
+                    gravity: 0.92,
+                    icon: '♅'
+                },
+                {
+                    name: 'Neptune',
+                    gravity: 1.19,
+                    icon: '♆'
+                },
+                {
+                    name: 'Moon',
+                    gravity: 0.165,
+                    icon: '🌙'
+                }
+            ];
+
+            const planetGrid = document.getElementById('planet-grid');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const earthWeightInput = document.getElementById('earth-weight');
+
+            // Dialog elements
+            const dialogOverlay = document.getElementById('dialog-overlay');
+            const dialog = document.getElementById('dialog');
+            const dialogIcon = document.getElementById('dialog-icon');
+            const dialogTitle = document.getElementById('dialog-title');
+            const dialogMessage = document.getElementById('dialog-message');
+            const dialogConfirm = document.getElementById('dialog-confirm');
+            const dialogCancel = document.getElementById('dialog-cancel');
+
+            // SVG Icons for different dialog types
+            const dialogIcons = {
+                info: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#667eea" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>`,
+                warning: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffa726" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>`,
+                error: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#f44336" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="15" y1="9" x2="9" y2="15"></line>
+                    <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>`,
+                success: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>`
+            };
+
+            // Dialog system
+            function showDialog(title, message, type = 'info', confirmText = 'OK', cancelText = null) {
+                return new Promise((resolve) => {
+                    // Set dialog content
+                    dialogTitle.textContent = title;
+                    dialogMessage.textContent = message;
+                    dialogConfirm.textContent = confirmText;
+
+                    // Set icon based on type
+                    dialogIcon.innerHTML = dialogIcons[type] || dialogIcons.info;
+
+                    // Show/hide cancel button and adjust layout
+                    if (cancelText) {
+                        dialogCancel.textContent = cancelText;
+                        dialogCancel.style.display = 'block';
+                        dialog.classList.remove('single-button');
+                    } else {
+                        dialogCancel.style.display = 'none';
+                        dialog.classList.add('single-button');
+                    }
+
+                    // Show dialog
+                    dialogOverlay.classList.add('active');
+
+                    // Set up event listeners
+                    const confirmHandler = () => {
+                        cleanup();
+                        resolve(true);
+                    };
+
+                    const cancelHandler = () => {
+                        cleanup();
+                        resolve(false);
+                    };
+
+                    const overlayHandler = (e) => {
+                        if (e.target === dialogOverlay) {
+                            cancelHandler();
+                        }
+                    };
+
+                    const keyHandler = (e) => {
+                        if (e.key === 'Escape') {
+                            cancelHandler();
+                        } else if (e.key === 'Enter' && !cancelText) {
+                            confirmHandler();
+                        }
+                    };
+
+                    function cleanup() {
+                        dialogOverlay.classList.remove('active');
+                        dialogConfirm.removeEventListener('click', confirmHandler);
+                        dialogCancel.removeEventListener('click', cancelHandler);
+                        dialogOverlay.removeEventListener('click', overlayHandler);
+                        document.removeEventListener('keydown', keyHandler);
+                    }
+
+                    dialogConfirm.addEventListener('click', confirmHandler);
+                    dialogCancel.addEventListener('click', cancelHandler);
+                    dialogOverlay.addEventListener('click', overlayHandler);
+                    document.addEventListener('keydown', keyHandler);
+                });
+            }
+
+            // Initialize planet cards
+            function initializePlanetCards() {
+                planetGrid.innerHTML = '';
+
+                planets.forEach(planet => {
+                    const planetCard = document.createElement('div');
+                    planetCard.className = `planet-card ${planet.name.toLowerCase()}`;
+
+                    planetCard.innerHTML = `
+                        <div class="planet-icon">${planet.icon}</div>
+                        <h3 class="planet-name">${planet.name}</h3>
+                        <div class="planet-weight">-- kg</div>
+                        <div class="planet-gravity">Gravity: ${planet.gravity}g</div>
+                    `;
+
+                    planetGrid.appendChild(planetCard);
+                });
+            }
+
+            // Calculate weights on different planets
+            function calculateWeights() {
+                const earthWeight = parseFloat(earthWeightInput.value);
+
+                if (isNaN(earthWeight) || earthWeight <= 0) {
+                    showDialog(
+                        'Invalid Input',
+                        'Please enter a valid weight (positive number)',
+                        'warning'
+                    );
+                    return;
+                }
+
+                if (earthWeight > 1000) {
+                    showDialog(
+                        'Heavy Weight',
+                        'That\'s quite heavy! Are you sure about this value?',
+                        'warning',
+                        'Yes, Calculate',
+                        'No, Let me check'
+                    ).then(confirmed => {
+                        if (confirmed) {
+                            performCalculation(earthWeight);
+                        }
+                    });
+                    return;
+                }
+
+                performCalculation(earthWeight);
+            }
+
+            function performCalculation(earthWeight) {
+                const planetCards = document.querySelectorAll('.planet-card');
+
+                planetCards.forEach((card, index) => {
+                    const planet = planets[index];
+                    const weightOnPlanet = (earthWeight * planet.gravity).toFixed(2);
+
+                    const weightElement = card.querySelector('.planet-weight');
+                    weightElement.textContent = `${weightOnPlanet} kg`;
+
+                    // Add animation effect
+                    weightElement.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        weightElement.style.transform = 'scale(1)';
+                    }, 300);
+                });
+
+                // Show success message for first calculation
+                if (!earthWeightInput.dataset.calculated) {
+                    showDialog(
+                        'Calculation Complete',
+                        'Your weights on different celestial bodies have been calculated!',
+                        'success'
+                    );
+                    earthWeightInput.dataset.calculated = 'true';
+                }
+            }
+
+            // Event listeners
+            calculateBtn.addEventListener('click', calculateWeights);
+
+            earthWeightInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    calculateWeights();
+                }
+            });
+
+            // Initialize the page
+            initializePlanetCards();
+
+            // Show welcome message
+            setTimeout(() => {
+                showDialog(
+                    'Welcome to Planetary Weight Calculator',
+                    'Enter your weight on Earth to discover what you would weigh across our solar system and beyond!',
+                    'info'
+                );
+            }, 500);
+        });
+    </script>
 </body>
 
 </html>
